@@ -1,0 +1,6 @@
+{
+    "hostname": "localhost",
+    "port": 5002,
+    "query_url": "http://localhost:5001",
+    "provider_url": "http://localhost:5000"
+  }

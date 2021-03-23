@@ -1,0 +1,7 @@
+{
+  "hostname": "localhost",
+  "port": 5001,
+  "public_key_fp": "./public.pem",
+  "query_data_fp": "./query_data.txt",
+  "broker_url": "http://localhost:5002"
+}

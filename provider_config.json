@@ -1,0 +1,9 @@
+{
+  "hostname": "localhost",
+  "port": 5000,
+  "public_key_fp": "./public.pem",
+  "private_key_fp": "./private.pem",
+  "password": "password",
+  "provider_data_fp": "./provider_data.txt",
+  "broker_url": "http://localhost:5002"
+}
