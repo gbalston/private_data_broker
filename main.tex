@@ -1,0 +1,270 @@
+
+\newif\iffullversion
+\fullversiontrue
+%\fullversionfalse
+
+\documentclass[oribibl]{llncs}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+\usepackage{aecompl}
+\usepackage[english]{babel}
+\usepackage{amsmath,mathtools}
+%\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amscd}
+%\usepackage{bbm}
+%\usepackage{url}
+\usepackage{hyperref}
+\usepackage{enumerate}
+%\usepackage[left=3cm,top=3cm,bottom=2cm,right=3cm,head=1cm,foot=1cm]{geometry}
+\usepackage{graphicx}
+%\usepackage[all,cmtip]{xy}
+%\usepackage{float}
+%\usepackage{subfigure}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+%\usepackage{xcolor}
+\usepackage{multirow}
+%\usepackage[justification=centering,font={small,it}]{caption}
+\usepackage{array}
+%\usepackage{colortbl}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{color}
+\usepackage[table]{xcolor}
+%% To remove comments, change the below line to
+%% \usepackage[colorinlistoftodos,prependcaption,disable]{todonotes}
+\usepackage[colorinlistoftodos,prependcaption]{todonotes}
+\usepackage{tikz-cd}
+\usepackage{placeins}
+\usepackage{xargs}
+
+%\newtheorem{theorem}{Theorem}[section]
+%\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{example}[theorem]{Example}
+%\newtheorem{assumption}{Assumption}
+%\newcommand{\lemmaautorefname}{Lemma}
+%\newcommand{\corollaryautorefname}{Corollary}
+
+%Add QED boxes to LLNCS stylesheet
+\let\doendproof\endproof
+\renewcommand\endproof{~\hfill\qed\doendproof}
+
+\newcommand{\namedref}[2]{\hyperref[#2]{#1~\ref*{#2}}}
+%% if you don't like it, use this instead:
+%\newcommand{\namedref}[2]{#1~\ref{#2}}
+\newcommand{\chapterref}[1]{\namedref{Chapter}{#1}}
+\newcommand{\sectionref}[1]{\namedref{Section}{#1}}
+\newcommand{\theoremref}[1]{\namedref{Theorem}{#1}}
+\newcommand{\definitionref}[1]{\namedref{Definition}{#1}}
+\newcommand{\corollaryref}[1]{\namedref{Corollary}{#1}}
+\newcommand{\obsref}[1]{\namedref{Observation}{#1}}
+\newcommand{\lemmaref}[1]{\namedref{Lemma}{#1}}
+\newcommand{\claimref}[1]{\namedref{Claim}{#1}}
+\newcommand{\figureref}[1]{\namedref{Figure}{#1}}
+\newcommand{\tableref}[1]{\namedref{Table}{#1}}
+\newcommand{\hybridref}[1]{\namedref{Hybrid}{#1}}
+\newcommand{\stepref}[1]{\namedref{Step}{#1}}
+\newcommand{\subfigureref}[2]{\hyperref[#1]{Figure~\ref*{#1}#2}}
+\newcommand{\equationref}[1]{\namedref{Equation}{#1}}
+\newcommand{\appendixref}[1]{\namedref{Appendix}{#1}}
+\newcommand{\remarkref}[1]{\namedref{Remark}{#1}}
+
+\newcommand{\norm}[1]{\ensuremath{\left\|{#1}\right\|^{\text{can}}}}
+\newcommand{\onenorm}[1]{\ensuremath{\left\|{#1}\right\|_{1}}}
+
+\newenvironment{notation}[1][Notation.]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+\renewcommand{\P}{\ensuremath{\mathcal{P}}}
+\newcommand{\M}{\ensuremath{\mathcal{M}}}
+\newcommand{\Enc}{\ensuremath{\texttt{Encode}}}
+\newcommand{\Dec}{\ensuremath{\texttt{Decode}}}
+\newcommand{\bQ}{\ensuremath{\mathbf{Q}}}
+\newcommand{\bZ}{\ensuremath{\mathbf{Z}}}
+
+%Scheme notation
+\newcommand{\sk}{\texttt{sk}}
+\newcommand{\pk}{\texttt{pk}}
+\newcommand{\ct}{\texttt{ct}}
+\newcommand{\ksd}{\texttt{ksd}}
+\newcommand{\lev}{t}
+\newcommand{\ql}{{q_{\lev}}}
+\newcommand{\BGV}{^\mathsf{BGV}}
+\newcommand{\FV}{^\mathsf{FV}}
+\newcommand{\CRT}{\mathsf{CRT}}
+\newcommand{\clean}{\mathsf{clean}}
+\newcommand{\ReduceLevel}{{\mathsf{ReduceLevel}}}
+\newcommand{\Scale}{{\mathsf{Scale}}}
+\newcommand{\SwitchKey}{\mathsf{SwitchKey}}
+\newcommand{\SwitchKeyGen}{\mathsf{SwitchKeyGen}}
+\newcommand{\asn}{\leftarrow}
+\newcommand{\cK}{c_m}
+\newcommand{\can}{\mathsf{can}}
+\newcommand{\phim}{\phi(m)}
+\newcommand{\BKs}[3]{B_\mathsf{Ks,#2}#1(#3)}
+\newcommand{\dt}{\mathfrak{d}}
+\newcommand{\Add}{\mathsf{Add}}
+\newcommand{\Mult}{\mathsf{Mult}}
+\newcommand{\ZZ}{\mathbb{Z}} 
+\newcommand{\CC}{\mathbb{C}} 
+
+%Norms etc.
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\newcommand{\sceil}[1]{\lceil #1 \rceil}
+\newcommand{\ceil}[1]{\Bigl\lceil #1 \Bigr\rceil}
+\newcommand{\floor}[1]{\Bigl\lfloor #1 \Bigr\rfloor}
+\newcommand{\round}[1]{\Bigl\lceil #1 \Bigr\rfloor}
+\newcommand{\inner}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\Norm}[1]{\Vert #1 \Vert}
+\newcommand{\NormI}[1]{\Big\Vert #1 \Big\Vert_\infty}
+\newcommand{\NormOne}[1]{\Big\Vert #1 \Big\Vert_1}
+\newcommand{\NormTwo}[1]{\Big\Vert #1 \Big\Vert_2}
+\newcommand{\NormCan}[1]{\Big\Vert #1 \Big\Vert_\infty^{\can}}
+
+%Distributions
+\newcommand{\calU}{\mathcal{U}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calN}{\mathcal{N}}
+\newcommand{\dN}{\mathcal{DG}}
+\newcommand{\HWT}{\mathcal{HWT}}
+\newcommand{\ZO}{\mathcal{ZO}}
+
+%Comments
+\definecolor{DarkPurple}{HTML}{332288}
+\definecolor{DarkBlue}{HTML}{6699CC}
+\definecolor{DarkGreen}{HTML}{117733}
+\definecolor{DarkRed}{HTML}{661100}
+\definecolor{DarkPink}{HTML}{882255}
+\definecolor{DarkBrown}{HTML}{604c38}
+\definecolor{DarkTeal}{HTML}{003333}
+
+%Vector
+\let\vec\mathbf
+
+\newenvironment{packed_enum}{
+\begin{enumerate}[1)]
+  \setlength{\itemsep}{1pt}
+  \setlength{\parskip}{2pt}
+  \setlength{\parsep}{2pt}
+}{\end{enumerate}}
+
+% to make it nicer when long instances of align* environments
+\allowdisplaybreaks
+
+\pagestyle{plain}
+
+\usepackage[n,operators,advantage,sets,adversary,landau,probability,notions,logic,ff,mm,primitives,events,complexity,asymptotics,keys]{cryptocode}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\title{Private Data Broker}
+
+
+\maketitle
+
+\section*{The Original Protocol}
+
+The original protocol is designed by De Cristofaro and Tsudik~\cite{EPRINT:DeCTsu10}. We have public data: \[ \{n, e, H(), H^{\prime}()\}, \] which consists of the RSA modulus \(n\), the RSA public key \(e\), and two hash functions \(H(), H^{\prime}()\). The client's input to the protocol is: \( \mathcal{C} = \{hc_1,\cdots,hc_v\}, \) where \(hc_i = H(c_i)\). The server's input to the protocol is \(d\), the RSA private key, and \( \mathcal{S} = \{ hs_1, \cdots, hs_w \} \), where \(hs_j = H(s_j)\). In the offline phase of the protocol, the Client computes:
+\[ \{ R_{c:i} \leftarrow \ZZ_{n}^* \text{ and } y_i = hc_i \cdot (R_{c:i})^e \bmod{n} \}_{\forall i}, \]
+and the Server computes: 
+\[ \{ K_{s:j} = (hs_j)^d \bmod n \text{ and } t_j = H^{\prime}(K_{s:j}) \}_{\forall j}. \]
+The goal of the protocol is for the client and server to be able to privately compute the set intersection:
+
+\[ \mathcal{C} \cap \mathcal{S} = \{ hc_1, \cdots, hc_v \} \cap \{ hs_1, \cdots, hs_w \}. \]
+In Figure~\ref{fig:original}, we outline the online phase of the protocol. Here, we rename the client to be the \emph{query provider}, and we rename the server to be the \emph{data provider}.
+
+\begin{figure}[htb!]
+	\centering
+	\resizebox{\textwidth}{!}{
+	\fbox{
+	\pseudocode{%
+		\textbf{Query Provider}\< \< \textbf{Data Provider} \\[][ \hline]
+		\< \sendmessageright{ top = $\{y_i \}_{i=1}^v$}  \< \text{Compute } y_{i}^{\prime} = (y_i)^d \bmod{n} \\
+		\<  \sendmessageleft{top = {$\{y^{\prime}_{i} \}_{i=1}^v$, $\{t_{j} \}_{j=1}^w$}} \< \\
+		\text{Compute: } K_{c:i} = \frac{y_{i}^{\prime}}{R_{c:i}}, t^{\prime}_i = H^{\prime}(K_{c:i})  \< \< \< \\
+		\text{Output: }  T = \{ t_{1}^{\prime}, \cdots, t_{v}^{\prime} \} \cap \{ t_1, \cdots, t_w \}  \< \< \<
+	}}}
+	\caption{The on-line phase of the original protocol}
+	\label{fig:original}
+\end{figure}
+
+\clearpage
+
+\FloatBarrier
+\section*{Adding a Broker}
+\FloatBarrier
+
+The updated version of the protocol introduces a third party, referred to as the \emph{broker}, to the process. 
+\begin{figure}[htb!]
+	\centering
+	\resizebox{\textwidth}{!}{
+	\fbox{
+		\pseudocode{%
+			\textbf{Query Provider} \< \< \textbf{Broker} \< \< \textbf{Data Provider} \\[][ \hline]
+			\< \sendmessageright{top = $\{y_i \}_{i=1}^v$} \< \< \< \\
+			\< \< \< \sendmessageright{top = $\{y_i \}_{i=1}^v$} \< \\
+			\< \< \< \< \text{Compute: } y_{i}^{\prime} = (y_i)^d \bmod{n} \\
+			\< \< \< \sendmessageleft{top = {$\{y_{i}^{\prime} \}_{i=1}^v$, $\{t_{j}\}_{j=1}^w$}} \< \\
+			\< \< \text{Compute: } K_{c:i} = \frac{y_{i}^{\prime}}{R_{c:i}}, t^{\prime}_i = H^{\prime}(K_{c:i})  \< \< \\
+			\< \< \text{Output: }  T = \{  t_{1}^{\prime}, \cdots, t_{v}^{\prime} \} \cap \{ t_1, \cdots, t_w \}  \< \< \\
+			\< \sendmessageleft{ top = $T$ } \< \< \<
+	}}}
+	\caption{The on-line phase of the new protocol}
+\end{figure}
+
+\section*{A Comparison of Views}
+
+In this section, we briefly compare the view of each of the parties in the two respective protocols. 
+
+
+\begin{table}[htb!]
+	\centering
+	\begin{tabular}{c|c} 
+	Party	& View  \\ \hline
+	QP	&  \( \{y_i\},  \{y_{i}^d\}, \{ t_j\}, \{ t_{j}^{\prime} \}, T \)  \\
+	DP	& \( \{y_i\},  \{y_{i}^d\}, \{ t_j\} \)    \\ 
+	Broker	& \texttt{n/a} \\
+	\end{tabular}
+	\vspace{0.25cm}
+	\caption{The view of each of the two parties in the original protocol.}
+\end{table}
+
+\begin{table}[htb!]
+	\centering
+	\begin{tabular}{c|c} 
+		Party	& View  \\ \hline
+		QP	& \( \{y_i\}, T \)   \\
+		DP	& \( \{y_i\},  \{y_{i}^d\}, \{ t_j\} \)   \\ 
+		Broker	&  \( \{y_i\}, \{ y_{i}^d \}, \{ t_j\}, \{t_{j}^{\prime}\}, T \)  
+	\end{tabular}
+	\vspace{0.25cm}
+	\caption{The view of each of the three parties in the new protocol.}
+\end{table}
+ 
+ So the view of the \emph{data provider} is unchanged, but the query provider gets to see less information about the items that the data provider computes in the original protocol. So, essentially, the query provider only gets to see their query and the result.
+ 
+ \subsection*{Discussion}
+ 
+ So what does this mean? Essentially, the new protocol has the following differences:
+ 
+ \begin{enumerate}
+ 	\item A new party, the \emph{data broker}, is able to view \( \{y_i\}, \{ y_{i}^d \}, \{ t_j\}, \{t_{j}^{\prime}\}, T \), essentially allowing them a full view of the process.
+ 	\item The query provider is no longer able to view \(  \{y_{i}^d\}, \{ t_j\}, \{ t_{j}^{\prime} \} \).
+ \end{enumerate}
+
+Let's look at these items one-by-one. The first item \(\{y_{i}^d\}\), corresponds to the query provider's values \( \{y_i\} \) to the value of the data provider's private key \(d\). Due to the hardness of the DLP~\cite{DLP}, we know that the query provider cannot recover the private key \(d\) from the values \( \{y_{i}^d\} \). The second item, \(\{t_j\}\), corresponds to hash values provided by the server and the third item, \( \{t_{j}^{\prime}\} \), corresponds to hash values originally provided by the query provider in the first protocol. \\
+
+Questions: does this mean that the query provider no longer gets to see the size of the data provider's dataset (i.e. the value \(w\) in the above two figures)? In the updated protocol, the query provider only sees the size of the resulting intersection.
+ 
+\bibliography{local}
+\bibliographystyle{alpha}
+
+%\appendix
+%\input{appendix}
+
+\end{document}
