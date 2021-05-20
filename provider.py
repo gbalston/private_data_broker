@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 import json
+from flask_cors import CORS, cross_origin
 import requests
 import gmpy2
 from cryptography.hazmat.backends import default_backend
@@ -8,6 +9,7 @@ import base64
 import hashlib
 
 app = Flask(__name__)
+cors = CORS(app)
 
 def rsa_enc(c):
     return gmpy2.powmod(c, d, n)
@@ -26,7 +28,6 @@ def decode_int(x):
 
 @app.route('/get_provider_data')
 def get_provider_data():
-
     return jsonify({
         'encoded_encrypted_provider_data': encoded_provider_data
     })
@@ -43,6 +44,13 @@ def blind_query():
 
     return jsonify({
         'encoded_blinded_encrypted_query': encoded_blinded_encrypted_query,
+    })
+
+# ROUTE ONLY USED FOR DEMO PURPOSES
+@app.route('/get_unencrypted_provider_data')
+def get_unencrypted_provider_data():
+    return jsonify({
+        'provider_data': provider_data
     })
 
 if __name__ == '__main__':
@@ -63,6 +71,8 @@ if __name__ == '__main__':
 
     with open(config['provider_data_fp'], 'r') as f:
         provider_data = f.read().split('\n')
+
+    ## TODO - add deduplicate to provider data
 
     hashed_provider_data = [hash_str(x) for x in provider_data]
     encrypted_provider_data = [hash_int(rsa_enc(x)) for x in hashed_provider_data]

@@ -1,9 +1,11 @@
 from flask import Flask, jsonify
+from flask_cors import CORS, cross_origin
 import json
 import requests
-import base64
+import base64 
 
 app=Flask(__name__)
+cors = CORS(app)
 
 def encode_int(x):
     return base64.b64encode(str(x).encode()).decode()
@@ -33,14 +35,20 @@ def get_intersection():
     encrypted_provider_data = [decode_int(x) for x in encoded_encrypted_provider_data]
 
     # Find intersection between unblinded encrypted query and encrypted provider data
-    intersection = []
+    intersection = {}
 
     for x in encrypted_provider_data:
         for k, y in enumerate(unblinded_encrypted_query):
             if y == x:
-                intersection.append((k))
+                intersection[k] = ''
 
-    return(jsonify({'intersection': intersection}))
+    return(jsonify({
+        'intersection': intersection,
+        'encoded_encrypted_query': encoded_encrypted_query,
+        'encoded_blinded_encrypted_query': encoded_blinded_encrypted_query,
+        'encoded_unblinded_encrypted_query': encoded_unblinded_encrypted_query,
+        'encoded_encrypted_provider_data': encoded_encrypted_provider_data
+    }))
 
 if __name__ == '__main__':
 

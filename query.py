@@ -1,6 +1,7 @@
 import secrets
 import json
 from flask import Flask, jsonify, request
+from flask_cors import CORS, cross_origin
 import requests
 import gmpy2
 from cryptography.hazmat.backends import default_backend
@@ -9,6 +10,7 @@ import base64
 import hashlib
 
 app = Flask(__name__)
+cors = CORS(app)
 
 def blind_message(x, _r):
     return (gmpy2.powmod(_r, e, n) * x) % n
@@ -32,6 +34,13 @@ def decode_int(x):
 def get_query_data():
     return jsonify({
         'encoded_encrypted_query': encoded_encrypted_query
+    })
+
+# ROUTE ONLY USED FOR DEMO PURPOSES
+@app.route('/get_unencrypted_query')
+def get_unencrypted_query():
+    return jsonify({
+        'unencrypted_query': query
     })
 
 @app.route('/unblind_query', methods=['POST'])
